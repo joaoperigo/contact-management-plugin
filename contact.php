@@ -76,7 +76,7 @@ function post_meta_box_contacts_post(){
     $custom = get_post_custom( $post->ID );
     // email
     wp_nonce_field( 'contact_email_nonce', 'contact_email_nonce' );
-    $valueCountry = get_post_meta( $post->ID, '_contact_email', true );
+    $valueEmail = get_post_meta( $post->ID, '_contact_email', true );
     echo '<label style="width:100%" for="contact_email">Contact email</label>';
     echo '<input style="width:100%" id="contact_email" name="contact_email" placeholder="' . @esc_attr( $valueEmail ) . '">';
     // country

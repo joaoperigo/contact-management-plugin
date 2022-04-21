@@ -44,19 +44,21 @@ add_action( "admin_init", "add_post_meta_boxes" );
 function post_meta_box_contacts_post(){
     global $post;
     $custom = get_post_custom( $post->ID );
-    // create user
-    // writte here email
-    // input for email value
+    // email
+    wp_nonce_field( 'contact_email_nonce', 'contact_email_nonce' );
+    $valueCountry = get_post_meta( $post->ID, '_contact_email', true );
+    echo '<label style="width:100%" for="contact_email">Contact email</label>';
+    echo '<input style="width:100%" id="contact_email" name="contact_email" placeholder="' . @esc_attr( $valueEmail ) . '">';
     // country
     wp_nonce_field( 'contact_country_nonce', 'contact_country_nonce' );
     $valueCountry = get_post_meta( $post->ID, '_contact_country', true );
     echo '<label style="width:100%" for="contact_country">Contact country</label>';
-    echo '<input style="width:100%" id="contact_country" name="contact_country" placeholder="' . esc_attr( $valueCountry ) . '">';
+    echo '<input style="width:100%" id="contact_country" name="contact_country" placeholder="' . @esc_attr( $valueCountry ) . '">';
     // number
     wp_nonce_field( 'contact_number_nonce', 'contact_number_nonce' );
     $valueNumber = get_post_meta( $post->ID, '_contact_number', true );
     echo '<label style="width:100%" for="contact_number">Contact number</label>';
-    echo '<input style="width:100%" id="contact_number" name="contact_number" placeholder="' . esc_attr( $valueNumber ) . '">';
+    echo '<input style="width:100%" id="contact_number" name="contact_number" placeholder="' . @esc_attr( $valueNumber ) . '">';
 }
 
 // save
@@ -65,9 +67,11 @@ function save_global_notice_meta_box_data( $post_id ) {
     // code
     // Check if email already exists here
     // Sanitize user input here
+    $contact_email = sanitize_text_field( $_POST['contact_email'] );
     $contact_country = sanitize_text_field( $_POST['contact_country'] );
     $contact_number = sanitize_text_field( $_POST['contact_number'] );
     // Update the meta field in the database.
+    update_post_meta( $post_id, '_contact_email', $contact_email );
     update_post_meta( $post_id, '_contact_country', $contact_country );
     update_post_meta( $post_id, '_contact_number', $contact_number );
 }

@@ -14,7 +14,7 @@ function create_post_type_contact() {
     register_post_type( 'contact',
         array( 
             'labels' => array(
-                'name' => __( 'All Contacts' ),
+                'name' => __( 'Contacts' ),
                 'singular_name' => __( 'Contact' ),
                 'add_new_item' => __( 'Add new contact' ),
             ),
@@ -33,7 +33,6 @@ function custom_enter_title( $input ) {
     if ( 'contact' === get_post_type() ) {
         return __( 'Contact name', 'your_textdomain' );
     }
-
     return $input;
 }
 

@@ -1,0 +1,1 @@
+console.log("Js for single-contact");

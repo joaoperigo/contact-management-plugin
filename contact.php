@@ -17,6 +17,7 @@ function create_post_type_contact() {
                 'name' => __( 'Contacts' ),
                 'singular_name' => __( 'Contact' ),
                 'add_new_item' => __( 'Add new contact' ),
+                
             ),
             'public' => true,
             'has_archive' => true,
@@ -50,12 +51,24 @@ function add_post_meta_boxes() {
 }
 add_action( "admin_init", "add_post_meta_boxes" );
 
-// add style and script
-function add_style_script() {
+// add style and script SINGLE-CONTACT.PHP
+function add_contact_script_style() {
     wp_enqueue_script( 'contact-script', plugins_url( '/contact-script.js', __FILE__ ));
     wp_enqueue_style( 'contact-style', plugins_url( '/contact-style.css', __FILE__ ));
 }
-add_action('wp_enqueue_scripts','add_style_script');
+add_action('wp_enqueue_scripts','add_contact_script_style');
+
+// add style and script in ADMIN CONTACT CPT
+function add_admin_contact_script_style( $hook ) {
+    global $post;  
+    if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
+        if ( 'contact' === $post->post_type ) {   
+            wp_enqueue_style( 'admin-contact-style', plugins_url( '/admin-style.css', __FILE__ ));
+            wp_enqueue_script( 'admin-contact-script', plugins_url( '/admin-script.js', __FILE__ ));
+        }
+    }
+  }
+add_action( 'admin_enqueue_scripts', 'add_admin_contact_script_style', 10, 1 );
 
 // callback function to render fields
 function post_meta_box_contacts_post(){
@@ -93,7 +106,6 @@ function save_global_notice_meta_box_data( $post_id ) {
     update_post_meta( $post_id, '_contact_number', $contact_number );
 }
 add_action( 'save_post', 'save_global_notice_meta_box_data' );
-
 
 /* Assign custom template to contact post type*/
 function load_contact_template( $template ) {

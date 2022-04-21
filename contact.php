@@ -49,6 +49,13 @@ function add_post_meta_boxes() {
 }
 add_action( "admin_init", "add_post_meta_boxes" );
 
+// add style and script
+function add_style_script() {
+    wp_enqueue_script( 'contact-script', plugins_url( '/contact-script.js', __FILE__ ));
+    wp_enqueue_style( 'contact-style', plugins_url( '/contact-style.css', __FILE__ ));
+}
+add_action('wp_enqueue_scripts','add_style_script');
+
 // callback function to render fields
 function post_meta_box_contacts_post(){
     global $post;

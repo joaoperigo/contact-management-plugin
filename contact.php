@@ -28,13 +28,14 @@ function create_post_type_contact() {
 }
 add_action( 'init', 'create_post_type_contact' );
 
-add_filter( 'enter_title_here', 'custom_enter_title' );
+// Fit placeholder message
 function custom_enter_title( $input ) {
     if ( 'contact' === get_post_type() ) {
         return __( 'Contact name', 'your_textdomain' );
     }
     return $input;
 }
+add_filter( 'enter_title_here', 'custom_enter_title' );
 
 // add contact date field to contacts post type
 function add_post_meta_boxes() {

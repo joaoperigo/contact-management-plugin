@@ -17,7 +17,7 @@ function create_post_type_contact() {
                 'name' => __( 'Contacts' ),
                 'singular_name' => __( 'Contact' ),
                 'add_new_item' => __( 'Add new contact' ),
-                
+                'edit_item' => __( 'Edit contact' ),
             ),
             'public' => true,
             'has_archive' => true,

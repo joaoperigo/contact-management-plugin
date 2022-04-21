@@ -78,17 +78,17 @@ function post_meta_box_contacts_post(){
     wp_nonce_field( 'contact_email_nonce', 'contact_email_nonce' );
     $valueEmail = get_post_meta( $post->ID, '_contact_email', true );
     echo '<label style="width:100%" for="contact_email">Contact email</label>';
-    echo '<input style="width:100%" id="contact_email" name="contact_email" placeholder="' . @esc_attr( $valueEmail ) . '">';
+    echo '<input type="email" style="width:100%" id="contact_email" name="contact_email" placeholder="' . @esc_attr( $valueEmail ) . '">';
     // country
     wp_nonce_field( 'contact_country_nonce', 'contact_country_nonce' );
     $valueCountry = get_post_meta( $post->ID, '_contact_country', true );
-    echo '<label style="width:100%" for="contact_country">Contact country</label>';
+    echo '<label type="text" style="width:100%" for="contact_country">Contact country</label>';
     echo '<input style="width:100%" id="contact_country" name="contact_country" placeholder="' . @esc_attr( $valueCountry ) . '">';
     // number
     wp_nonce_field( 'contact_number_nonce', 'contact_number_nonce' );
     $valueNumber = get_post_meta( $post->ID, '_contact_number', true );
     echo '<label style="width:100%" for="contact_number">Contact number</label>';
-    echo '<input style="width:100%" id="contact_number" name="contact_number" placeholder="' . @esc_attr( $valueNumber ) . '">';
+    echo '<input type="text" style="width:100%" id="contact_number" name="contact_number" placeholder="' . @esc_attr( $valueNumber ) . '"  maxlength="9">';
 }
 
 // save

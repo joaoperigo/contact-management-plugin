@@ -45,36 +45,32 @@ function post_meta_box_contacts_post(){
     global $post;
     $custom = get_post_custom( $post->ID );
     // create user
-    // writte here create user
-    // get title value of CPT ant create user nickname
-    // country.
+    // writte here email
+    // input for email value
+    // country
     wp_nonce_field( 'contact_country_nonce', 'contact_country_nonce' );
-    $value = get_post_meta( $post->ID, '_contact_country', true );
-    echo '<input style="width:100%" id="contact_country" name="contact_country"' . esc_attr( $value ) . '>';
+    $valueCountry = get_post_meta( $post->ID, '_contact_country', true );
+    echo '<label style="width:100%" for="contact_country">Contact country</label>';
+    echo '<input style="width:100%" id="contact_country" name="contact_country" placeholder="' . esc_attr( $valueCountry ) . '">';
     // number
     wp_nonce_field( 'contact_number_nonce', 'contact_number_nonce' );
-    $value = get_post_meta( $post->ID, '_contact_number', true );
-    echo '<input style="width:100%" id="contact_number" name="contact_number"' . esc_attr( $value ) . '>';
+    $valueNumber = get_post_meta( $post->ID, '_contact_number', true );
+    echo '<label style="width:100%" for="contact_number">Contact number</label>';
+    echo '<input style="width:100%" id="contact_number" name="contact_number" placeholder="' . esc_attr( $valueNumber ) . '">';
 }
 
-// /**
-//  * When the post is saved, saves our custom data.
-//  *
-//  * @param int $post_id
-//  */
+// save
 function save_global_notice_meta_box_data( $post_id ) {
-
-    // insert validation conditions here
-
-    // Sanitize user input.
+    // Insert validation conditions here
+    // code
+    // Check if email already exists here
+    // Sanitize user input here
     $contact_country = sanitize_text_field( $_POST['contact_country'] );
     $contact_number = sanitize_text_field( $_POST['contact_number'] );
-
     // Update the meta field in the database.
     update_post_meta( $post_id, '_contact_country', $contact_country );
     update_post_meta( $post_id, '_contact_number', $contact_number );
 }
-
 add_action( 'save_post', 'save_global_notice_meta_box_data' );
 
 

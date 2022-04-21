@@ -12,10 +12,11 @@ defined( 'ABSPATH' ) or die();
 //Custom post type
 function create_post_type_contact() {
     register_post_type( 'contact',
-        array(
+        array( 
             'labels' => array(
                 'name' => __( 'All Contacts' ),
-                'singular_name' => __( 'Contact' )
+                'singular_name' => __( 'Contact' ),
+                'add_new_item' => __( 'Add new contact' ),
             ),
             'public' => true,
             'has_archive' => true,
@@ -26,6 +27,15 @@ function create_post_type_contact() {
     );
 }
 add_action( 'init', 'create_post_type_contact' );
+
+add_filter( 'enter_title_here', 'custom_enter_title' );
+function custom_enter_title( $input ) {
+    if ( 'contact' === get_post_type() ) {
+        return __( 'Contact name', 'your_textdomain' );
+    }
+
+    return $input;
+}
 
 // add contact date field to contacts post type
 function add_post_meta_boxes() {
@@ -67,9 +77,9 @@ function save_global_notice_meta_box_data( $post_id ) {
     // code
     // Check if email already exists here
     // Sanitize user input here
-    $contact_email = sanitize_text_field( $_POST['contact_email'] );
-    $contact_country = sanitize_text_field( $_POST['contact_country'] );
-    $contact_number = sanitize_text_field( $_POST['contact_number'] );
+    $contact_email = @sanitize_text_field( $_POST['contact_email'] );
+    $contact_country = @sanitize_text_field( $_POST['contact_country'] );
+    $contact_number = @sanitize_text_field( $_POST['contact_number'] );
     // Update the meta field in the database.
     update_post_meta( $post_id, '_contact_email', $contact_email );
     update_post_meta( $post_id, '_contact_country', $contact_country );
